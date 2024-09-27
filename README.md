@@ -1,3 +1,4 @@
 # Quantum-espresso
 QE input generator           
-pwd.x < scf.in |tee scf.out
+mpirun -np 36 pw.x -in scf.in | tee scf.out
+
