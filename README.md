@@ -13,9 +13,11 @@ https://www.physics.rutgers.edu/gbrv/
 https://nninc.cnf.cornell.edu  
 http://www.quantum-simulation.org/potentials/  
 BLYP pseudopotentials  
-SCAN pseudopotentials  
+SCAN pseudopotentials 
 
-Tutorials:
+
+
+Tutorials:  
 https://pranabdas.github.io/espresso/
 
 
