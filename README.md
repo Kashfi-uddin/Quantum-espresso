@@ -18,7 +18,7 @@ SCAN pseudopotentials
 
 
 Tutorials:  
-https://pranabdas.github.io/espresso/
+https://pranabdas.github.io/espresso/  
 https://www.quantum-espresso.org/wp-content/uploads/2022/03/pseudo-gen.pdf  
 
 
