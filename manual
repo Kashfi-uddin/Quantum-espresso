@@ -1,2 +1,12 @@
+Input generator,K-path generator
 relax scf properties
-relaxed lattice parameter & co-ordinates should be copied to scf
+#SCF
+-relaxed lattice parameter & co-ordinates should be copied to scf
+-nbnd=no.of electrons(for getting CB & calc band gap)
+-smearing is not necessary as we will do nscf to get fermi energy (!smearing,occupation,degauss)
+#BAND 
+-cp out to band directory
+-do nscf calc with higher kpt & occupations
+-do band calc with kpath
+
+
