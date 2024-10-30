@@ -11,5 +11,11 @@ relax scf properties
 #MECHA
 -cp scf_out
 -do thermo_pw.x execution
+-add thermo_control
+&INPUT_THERMO
+         what='mur_lc_elastic_constants',
+         frozen_ions=.false.
+/
+
 
 
