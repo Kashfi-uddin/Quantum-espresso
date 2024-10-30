@@ -12,7 +12,7 @@ PREFIX="InN+C_III_"					#Manual input of PREFIX when MANUAL_PREFIX=1
 Y_RANGE_BND=(-4 4)					#For full range keep it empty
 KP_NAME=(M "{/Symbol G}" K M)    	#Use "{/Symbol G}" for gamma; if AUTO_KP_FROM_BAND_NSCF_INPUT=1, this will be deactive
 
-AUTO_KP_FROM_BAND_NSCF_INPUT=1		#For manual input of make 0 and provide with KP_NAME
+AUTO_KP_FROM_BAND_NSCF_INPUT=0		#For manual input of make 0 and provide with KP_NAME
 DRAW_VERTICAL_LINES=1				#Use 1 to plot, 0 for not to plot
 
 BND_LEGEND="Struct I"
@@ -58,8 +58,8 @@ fi
 
 #======================BAND=========================================================
 if [ $CRE_BAND_PLT -eq 1 ];then
-	KP_HS_POINTS=($(grep "high" $PWD/OUT/$PREFIX.band.out | awk {'print $8'}))
-	F_ENG_BND=$(grep "Fermi" $PWD/OUT/$PREFIX.scf.out | awk {'print $5'})
+	KP_HS_POINTS=($(grep "high" $PWD/OUT/$PREFIX.band_dat.out | awk {'print $8'}))
+	F_ENG_BND=$(grep "Fermi" $PWD/OUT/$PREFIX.nscf.out | awk {'print $5'})
 	KP_NAME_2=($(grep -A 5 "K_POINTS" $PWD/$PREFIX.band_nscf.in | grep -v "K_P" | awk '{print $1}')) #Automation of KP
 	
 	for (( i = 0; i < 6; i++ )); do
