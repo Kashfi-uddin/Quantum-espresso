@@ -4,18 +4,25 @@ relax scf properties
 -relaxed lattice parameter & co-ordinates should be copied to scf
 -nbnd=no.of electrons(for getting CB & calc band gap)
 -smearing is not necessary as we will do nscf to get fermi energy (!smearing,occupation,degauss)
-#BAND 
--cp scf_out to band directory
+#NSCF
+-cp scf_out
 -do nscf calc with higher kpt & occupations
+#BAND 
+-cp nscf_out 
 -do band calc with kpath
 #MECHA
--cp scf_out
--do thermo_pw.x execution
+-cp nscf_out
 -add thermo_control
 &INPUT_THERMO
          what='mur_lc_elastic_constants',
          frozen_ions=.false.
 /
+-do thermo_pw.x execution
+# OPTICAL
+-cp nscf_out
+-do epsilon.x execution
+
+
 
 
 
