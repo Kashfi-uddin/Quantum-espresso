@@ -1,14 +1,14 @@
 &inputpp
-    prefix = 'aiida'      ! same as in SCF and NSCF calculations
-    outdir = './out'            ! directory for SCF and NSCF results
-    calculation = 'eps'
+    prefix = 'aiida',      
+    outdir = './out',           
+    calculation = 'eps',
 /
 &energy_grid
-    smeartype = 'gauss'      ! Use Gaussian smearing for better results with semiconductors
-    intersmear = 0.15           ! Small smearing value to respect the band gap
-    intrasmear = 0.0
-    wmax = 30.0                 ! Maximum photon energy in eV
-    wmin = 0.0
-    nw = 600                    ! Number of energy points to ensure smooth data
+    smeartype = 'gauss',     
+    intersmear = 0.15,           
+    intrasmear = 0.0,
+    wmax = 30.0,                 
+    wmin = 0.0,
+    nw = 600,                    
     shift = 0.0
 /
