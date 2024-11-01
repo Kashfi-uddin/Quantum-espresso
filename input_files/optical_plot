@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+from matplotlib import rcParamsDefault
+import numpy as np
+%matplotlib inline
+plt.rcParams["figure.dpi"]=150
+plt.rcParams["figure.facecolor"]="white"
+
+data_r = np.loadtxt('./epsr_silicon.dat')
+data_i = np.loadtxt('./epsi_silicon.dat')
+energy_r, epsilon_r = data_r[:, 0], data_r[:, 2]
+energy_i, epsilon_i = data_i[:, 0], data_i[:, 2]
+
+plt.plot(energy_r, epsilon_r, lw=1, label="$\\epsilon_1$")
+plt.plot(energy_i, epsilon_i, lw=1, label="$\\epsilon_2$")
+plt.xlim(0, 15)
+plt.xlabel("Energy (eV)")
+plt.ylabel("$\\epsilon_1~/~\\epsilon_2$")
+plt.legend(frameon=False)
+plt.show()
