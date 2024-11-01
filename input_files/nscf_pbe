@@ -15,8 +15,8 @@
   ntyp = 3,
   nbnd = 50,
   occupations = 'tetrahedra',
-  nosym=.true.
-  noinv=.true.
+  #nosym=.true. 
+  #noinv=.true.
 /
 &ELECTRONS
   mixing_beta=0.7,
