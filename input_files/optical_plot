@@ -1,0 +1,92 @@
+# Import necessary libraries
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Set plot display settings
+plt.rcParams["figure.dpi"] = 150
+plt.rcParams["figure.facecolor"] = "white"
+
+# Load data files
+data_r = np.loadtxt('./epsr_aiida.dat')
+data_i = np.loadtxt('./epsi_aiida.dat')
+
+# Extract energy and epsilon values
+energy, epsilon_r = data_r[:, 0], data_r[:, 2]
+_, epsilon_i = data_i[:, 0], data_i[:, 2]
+
+# Compound name
+compound_name = "Si"  # Update this with your compound's name
+
+# Calculate refractive index (n) and extinction coefficient (k)
+n = np.sqrt((np.sqrt(epsilon_r**2 + epsilon_i**2) + epsilon_r) / 2)
+k = np.sqrt((np.sqrt(epsilon_r**2 + epsilon_i**2) - epsilon_r) / 2)
+
+# Calculate reflectivity (R)
+R = ((n - 1)**2 + k**2) / ((n + 1)**2 + k**2)
+
+# Calculate loss function (L)
+L = epsilon_i / (epsilon_r**2 + epsilon_i**2)
+
+# Calculate absorbance (α)
+wavelength = 1240 / energy  # Wavelength in nm
+alpha = (4 * np.pi * k) / wavelength
+
+# Plot 1: Absorbance (α)
+plt.figure(figsize=(8, 4))
+plt.plot(energy, alpha, lw=1, color="orange", label=compound_name)
+plt.xlabel("Energy (eV)")
+plt.ylabel("$\\alpha$")
+plt.title("Absorbance")
+plt.legend(frameon=False)
+plt.show()
+
+# Plot 2: Dielectric Function
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(energy, epsilon_r, lw=1, label=compound_name)
+axs[0].set_xlabel("Energy (eV)")
+axs[0].set_ylabel("$\\epsilon_1$")
+axs[0].set_title("Dielectric Function (Real Part)")
+axs[0].legend(frameon=False)
+
+axs[1].plot(energy, epsilon_i, lw=1, label=compound_name)
+axs[1].set_xlabel("Energy (eV)")
+axs[1].set_ylabel("$\\epsilon_2$")
+axs[1].set_title("Dielectric Function (Imaginary Part)")
+axs[1].legend(frameon=False)
+
+plt.tight_layout()
+plt.show()
+
+# Plot 3: Refractive Index (n) and Extinction Coefficient (k)
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(energy, n, lw=1, color="blue", label=compound_name)
+axs[0].set_xlabel("Energy (eV)")
+axs[0].set_ylabel("$n$")
+axs[0].set_title("Refractive Index")
+axs[0].legend(frameon=False)
+
+axs[1].plot(energy, k, lw=1, color="purple", label=compound_name)
+axs[1].set_xlabel("Energy (eV)")
+axs[1].set_ylabel("$k$")
+axs[1].set_title("Extinction Coefficient")
+axs[1].legend(frameon=False)
+
+plt.tight_layout()
+plt.show()
+
+# Plot 4: Reflectivity (R) and Loss Function (L)
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(energy, R, lw=1, color="green", label=compound_name)
+axs[0].set_xlabel("Energy (eV)")
+axs[0].set_ylabel("$R$")
+axs[0].set_title("Reflectivity")
+axs[0].legend(frameon=False)
+
+axs[1].plot(energy, L, lw=1, color="red", label=compound_name)
+axs[1].set_xlabel("Energy (eV)")
+axs[1].set_ylabel("$L$")
+axs[1].set_title("Loss Function")
+axs[1].legend(frameon=False)
+
+plt.tight_layout()
+plt.show()
