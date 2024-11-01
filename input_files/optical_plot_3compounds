@@ -1,0 +1,134 @@
+# Import necessary libraries
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Set plot display settings
+plt.rcParams["figure.dpi"] = 150
+plt.rcParams["figure.facecolor"] = "white"
+
+# Load data files for each compound
+# Compound 1
+data_r1 = np.loadtxt('./epsr_compound1.dat')
+data_i1 = np.loadtxt('./epsi_compound1.dat')
+energy1, epsilon_r1 = data_r1[:, 0], data_r1[:, 2]
+_, epsilon_i1 = data_i1[:, 0], data_i1[:, 2]
+
+# Compound 2
+data_r2 = np.loadtxt('./epsr_compound2.dat')
+data_i2 = np.loadtxt('./epsi_compound2.dat')
+energy2, epsilon_r2 = data_r2[:, 0], data_r2[:, 2]
+_, epsilon_i2 = data_i2[:, 0], data_i2[:, 2]
+
+# Compound 3
+data_r3 = np.loadtxt('./epsr_compound3.dat')
+data_i3 = np.loadtxt('./epsi_compound3.dat')
+energy3, epsilon_r3 = data_r3[:, 0], data_r3[:, 2]
+_, epsilon_i3 = data_i3[:, 0], data_i3[:, 2]
+
+# Calculate refractive index (n) and extinction coefficient (k) for each compound
+def calculate_nk(epsilon_r, epsilon_i):
+    n = np.sqrt((np.sqrt(epsilon_r**2 + epsilon_i**2) + epsilon_r) / 2)
+    k = np.sqrt((np.sqrt(epsilon_r**2 + epsilon_i**2) - epsilon_r) / 2)
+    return n, k
+
+n1, k1 = calculate_nk(epsilon_r1, epsilon_i1)
+n2, k2 = calculate_nk(epsilon_r2, epsilon_i2)
+n3, k3 = calculate_nk(epsilon_r3, epsilon_i3)
+
+# Calculate reflectivity (R) for each compound
+def calculate_reflectivity(n, k):
+    R = ((n - 1)**2 + k**2) / ((n + 1)**2 + k**2)
+    return R
+
+R1 = calculate_reflectivity(n1, k1)
+R2 = calculate_reflectivity(n2, k2)
+R3 = calculate_reflectivity(n3, k3)
+
+# Calculate loss function (L) for each compound
+L1 = epsilon_i1 / (epsilon_r1**2 + epsilon_i1**2)
+L2 = epsilon_i2 / (epsilon_r2**2 + epsilon_i2**2)
+L3 = epsilon_i3 / (epsilon_r3**2 + epsilon_i3**2)
+
+# Calculate absorbance (α) for each compound
+def calculate_absorbance(energy, k):
+    wavelength = 1240 / energy  # Wavelength in nm
+    alpha = (4 * np.pi * k) / wavelength
+    return alpha
+
+alpha1 = calculate_absorbance(energy1, k1)
+alpha2 = calculate_absorbance(energy2, k2)
+alpha3 = calculate_absorbance(energy3, k3)
+
+# Plot 1: Absorbance (α)
+plt.figure(figsize=(8, 4))
+plt.plot(energy1, alpha1, lw=1, color="orange", label="Compound 1")
+plt.plot(energy2, alpha2, lw=1, color="blue", label="Compound 2")
+plt.plot(energy3, alpha3, lw=1, color="green", label="Compound 3")
+plt.xlabel("Energy (eV)")
+plt.ylabel("$\\alpha$")
+plt.title("Absorbance")
+plt.legend(frameon=False)
+plt.show()
+
+# Plot 2: Dielectric Function
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(energy1, epsilon_r1, lw=1, label="Compound 1")
+axs[0].plot(energy2, epsilon_r2, lw=1, label="Compound 2")
+axs[0].plot(energy3, epsilon_r3, lw=1, label="Compound 3")
+axs[0].set_xlabel("Energy (eV)")
+axs[0].set_ylabel("$\\epsilon_1$")
+axs[0].set_title("Dielectric Function (Real Part)")
+axs[0].legend(frameon=False)
+
+axs[1].plot(energy1, epsilon_i1, lw=1, label="Compound 1")
+axs[1].plot(energy2, epsilon_i2, lw=1, label="Compound 2")
+axs[1].plot(energy3, epsilon_i3, lw=1, label="Compound 3")
+axs[1].set_xlabel("Energy (eV)")
+axs[1].set_ylabel("$\\epsilon_2$")
+axs[1].set_title("Dielectric Function (Imaginary Part)")
+axs[1].legend(frameon=False)
+
+plt.tight_layout()
+plt.show()
+
+# Plot 3: Refractive Index (n) and Extinction Coefficient (k)
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(energy1, n1, lw=1, color="blue", label="Compound 1")
+axs[0].plot(energy2, n2, lw=1, color="orange", label="Compound 2")
+axs[0].plot(energy3, n3, lw=1, color="green", label="Compound 3")
+axs[0].set_xlabel("Energy (eV)")
+axs[0].set_ylabel("$n$")
+axs[0].set_title("Refractive Index")
+axs[0].legend(frameon=False)
+
+axs[1].plot(energy1, k1, lw=1, color="purple", label="Compound 1")
+axs[1].plot(energy2, k2, lw=1, color="orange", label="Compound 2")
+axs[1].plot(energy3, k3, lw=1, color="green", label="Compound 3")
+axs[1].set_xlabel("Energy (eV)")
+axs[1].set_ylabel("$k$")
+axs[1].set_title("Extinction Coefficient")
+axs[1].legend(frameon=False)
+
+plt.tight_layout()
+plt.show()
+
+# Plot 4: Reflectivity (R) and Loss Function (L)
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(energy1, R1, lw=1, color="green", label="Compound 1")
+axs[0].plot(energy2, R2, lw=1, color="orange", label="Compound 2")
+axs[0].plot(energy3, R3, lw=1, color="blue", label="Compound 3")
+axs[0].set_xlabel("Energy (eV)")
+axs[0].set_ylabel("$R$")
+axs[0].set_title("Reflectivity")
+axs[0].legend(frameon=False)
+
+axs[1].plot(energy1, L1, lw=1, color="red", label="Compound 1")
+axs[1].plot(energy2, L2, lw=1, color="orange", label="Compound 2")
+axs[1].plot(energy3, L3, lw=1, color="blue", label="Compound 3")
+axs[1].set_xlabel("Energy (eV)")
+axs[1].set_ylabel("$L$")
+axs[1].set_title("Loss Function")
+axs[1].legend(frameon=False)
+
+plt.tight_layout()
+plt.show()
