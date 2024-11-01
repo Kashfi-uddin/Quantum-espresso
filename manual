@@ -8,7 +8,7 @@ relax scf properties
 -smearing is not necessary as we will do nscf to get fermi energy (!smearing,occupation,degauss)
 #NSCF
 -cp scf_out
--do nscf calc with occupations
+-do nscf calc with higher kpt & occupations
 #BAND 
 -cp nscf_out 
 -do band calc with kpath
