@@ -1,5 +1,6 @@
 Input generator,K-path generator
 use oncp pp from psudo dojo https://github.com/PseudoDojo
+keep same kpt for scf and nscf
 relax scf properties
 #SCF
 -relaxed lattice parameter & co-ordinates should be copied to scf
