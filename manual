@@ -21,7 +21,7 @@ relax scf properties
 /
 -do thermo_pw.x execution
 # OPTICAL
--cp nscf_out with nosym & noinv
+-do scf with nosym & noinv and crystak kpt
 -do epsilon.x execution
 
 
