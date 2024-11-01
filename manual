@@ -1,4 +1,5 @@
 Input generator,K-path generator
+use oncp pp from psudo dojo https://github.com/PseudoDojo
 relax scf properties
 #SCF
 -relaxed lattice parameter & co-ordinates should be copied to scf
@@ -6,7 +7,7 @@ relax scf properties
 -smearing is not necessary as we will do nscf to get fermi energy (!smearing,occupation,degauss)
 #NSCF
 -cp scf_out
--do nscf calc with higher kpt & occupations
+-do nscf calc with occupations
 #BAND 
 -cp nscf_out 
 -do band calc with kpath
