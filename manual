@@ -16,12 +16,12 @@ relax scf properties
 
 #BAND 
 -do nscf 
--do band calc with kpath
+-do bands calc with kpath
 
 
 #DOS
 -do nscf 
--do dos
+-do dos.x execution
 
 
 #MECHA
