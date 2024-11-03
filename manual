@@ -1,4 +1,5 @@
-Input generator,K-path generator
+Input generator,K-path generator or cif2qe.py your_file.cif > qe_input.in
+
 use oncp pp from psudo dojo https://github.com/PseudoDojo
 use common outdir and pseudo_dir 
 
