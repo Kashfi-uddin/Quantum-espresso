@@ -22,6 +22,14 @@ relax scf properties
 #DOS
 -do nscf 
 -do dos.x execution
+&dos
+   prefix = 'aiida'
+   outdir = './out/'
+   fildos = 'dos.dat'
+   emin=-9.0
+   emax=16.0
+   deltaE = 0.01
+/
 
 
 #MECHA
