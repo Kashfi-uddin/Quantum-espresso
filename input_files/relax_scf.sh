@@ -126,8 +126,8 @@ K_POINTS automatic
     echo "Variable-cell relaxation completed for $compound_name."
 
     # Extract relaxed structure from vc-relax output
-    relaxed_positions=""
-    relaxed_cell=""
+    final_cell_parameters=""
+    final_positions=""
     in_final_section=false
 
 # Read the relax.out file
