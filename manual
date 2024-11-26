@@ -18,6 +18,16 @@ relax scf properties
 #BAND 
 -do nscf 
 -do bands calc with kpath
+#DFT+U
+-do scf with Hubbard
+-do hp.x for gettting the U parameter(the element must be at first in atomic_species of scf)
+&inputhp
+   prefix = 'K3IO'
+   outdir = './out/'
+   nq1 = 5, 
+   nq2 = 5, 
+   nq3 = 5
+/
 
 
 #DOS
