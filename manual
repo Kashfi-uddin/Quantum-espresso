@@ -19,7 +19,7 @@ relax scf properties
 -do nscf 
 -do bands calc with kpath
 #DFT+U
--do scf with Hubbard
+-do scf with Hubbard 1.0d-8
 -do hp.x for gettting the U parameter(the element must be at first in atomic_position of scf)
 &inputhp
    prefix = 'K3IO'
