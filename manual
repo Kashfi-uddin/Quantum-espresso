@@ -26,7 +26,9 @@ relax scf properties
    outdir = './out/'
    nq1 = 5, 
    nq2 = 5, 
-   nq3 = 5
+   nq3 = 5,
+   conv_thr_chi = 1.0d-8,
+   iverbosity = 2
 /
 
 
