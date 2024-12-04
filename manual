@@ -17,7 +17,8 @@ relax scf properties
 
 #BAND 
 -do nscf 
--do bands calc with kpath
+-do bands calc with kpath by pw.x
+-do band_dat calc by bands.x
 #DFT+U
 -do scf with Hubbard 1.0d-8
 -do hp.x for gettting the U parameter(the element must be at first in atomic_position of scf)
