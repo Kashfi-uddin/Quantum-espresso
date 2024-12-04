@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #======================SWITCHES=====================================================
 CRE_BAND_PLT=1						#Use 1 to plot, 0 for not to plot
@@ -6,11 +7,11 @@ CRE_PDOS_PLT=0						#Use 1 to plot, 0 for not to plot
 CRE_PNG=1							#Use 1 to plot, 0 for not to plot
 #======================INPUT SIDE===================================================
 MANUAL_PREFIX=0
-PREFIX="InN+C_III_"					#Manual input of PREFIX when MANUAL_PREFIX=1
+PREFIX="Rb3IO"					#Manual input of PREFIX when MANUAL_PREFIX=1
 
 #======================BAND=========================================================
 Y_RANGE_BND=(-4 4)					#For full range keep it empty
-KP_NAME=(M "{/Symbol G}" K M)    	#Use "{/Symbol G}" for gamma; if AUTO_KP_FROM_BAND_NSCF_INPUT=1, this will be deactive
+KP_NAME=("{/Symbol G}" X M "{/Symbol G}" R X)    	#Use "{/Symbol G}" for gamma; if AUTO_KP_FROM_BAND_NSCF_INPUT=1, this will be deactive
 
 AUTO_KP_FROM_BAND_NSCF_INPUT=0		#For manual input of make 0 and provide with KP_NAME
 DRAW_VERTICAL_LINES=1				#Use 1 to plot, 0 for not to plot
@@ -58,9 +59,9 @@ fi
 
 #======================BAND=========================================================
 if [ $CRE_BAND_PLT -eq 1 ];then
-	KP_HS_POINTS=($(grep "high" $PWD/OUT/$PREFIX.band_dat.out | awk {'print $8'}))
-	F_ENG_BND=$(grep "Fermi" $PWD/OUT/$PREFIX.nscf.out | awk {'print $5'})
-	KP_NAME_2=($(grep -A 5 "K_POINTS" $PWD/$PREFIX.band_nscf.in | grep -v "K_P" | awk '{print $1}')) #Automation of KP
+	KP_HS_POINTS=($(grep "high" $PWD/band_dat.out | awk {'print $8'}))
+	F_ENG_BND=$(grep "Fermi" $PWD/nscf.out | awk {'print $5'})
+	KP_NAME_2=($(grep -A 5 "K_POINTS" $PWD/nscf.in | grep -v "K_P" | awk '{print $1}')) #Automation of KP
 	
 	for (( i = 0; i < 6; i++ )); do
 		if [[ ${KP_NAME_2[i]} == "gG" ]]; then
@@ -68,56 +69,58 @@ if [ $CRE_BAND_PLT -eq 1 ];then
 		fi
 	done
 	
-	touch $PWD/Plot_band_$PREFIX.script
+	touch $PWD/Plot_band.script
 	if [[ $CRE_PNG -eq 1 ]]; then
-		cat > $PWD/Plot_band_$PREFIX.script <<EOF
+		cat > $PWD/Plot_band.script <<EOF
 #!/usr/bin/gnuplot -persist
 
 reset
 set term pngcairo
-set output "${PREFIX}_BANDS.png"
-set label '$TEXT_BND' at ${L_POS[0]},${L_POS[1]} font ',$FONT_SIZ'
+set output "BANDS.png"
 
 EOF
 	else
-		cat > $PWD/Plot_band_$PREFIX.script <<EOF
+		cat > $PWD/Plot_band.script <<EOF
 #!/usr/bin/gnuplot -persist
 
 reset
-set label '$TEXT_BND' at ${L_POS[0]},${L_POS[1]} font ',$FONT_SIZ'
 
 EOF
 fi
 
 	if [[ $AUTO_KP_FROM_BAND_NSCF_INPUT == '1' ]];then 			#Automation of KP
-		cat >> $PWD/Plot_band_$PREFIX.script <<EOF
+		cat >> $PWD/Plot_band.script <<EOF
 set xtics ("${KP_NAME_2[1]}" ${KP_HS_POINTS[0]},"${KP_NAME_2[2]}" ${KP_HS_POINTS[1]},"${KP_NAME_2[3]}" ${KP_HS_POINTS[2]},"${KP_NAME_2[4]}" ${KP_HS_POINTS[3]})
 EOF
 	else
-		cat >> $PWD/Plot_band_$PREFIX.script <<EOF
-set xtics ("${KP_NAME[0]}" ${KP_HS_POINTS[0]},"${KP_NAME[1]}" ${KP_HS_POINTS[1]},"${KP_NAME[2]}" ${KP_HS_POINTS[2]},"${KP_NAME[3]}" ${KP_HS_POINTS[3]})
+		cat >> $PWD/Plot_band.script <<EOF
+set xtics ("${KP_NAME[0]}" ${KP_HS_POINTS[0]},"${KP_NAME[1]}" ${KP_HS_POINTS[1]},"${KP_NAME[2]}" ${KP_HS_POINTS[2]},"${KP_NAME[3]}" ${KP_HS_POINTS[3]},"${KP_NAME[4]}" ${KP_HS_POINTS[4]},"${KP_NAME[5]}" ${KP_HS_POINTS[5]},"${KP_NAME[6]}" ${KP_HS_POINTS[6]})
 EOF
 	fi
 
 	if [ $DRAW_VERTICAL_LINES -eq 1 ];then
-		cat >> $PWD/Plot_band_$PREFIX.script <<EOF
+		cat >> $PWD/Plot_band.script <<EOF
 set arrow from ${KP_HS_POINTS[0]},graph(0,0) to ${KP_HS_POINTS[0]},graph(1,1) nohead
 set arrow from ${KP_HS_POINTS[1]},graph(0,0) to ${KP_HS_POINTS[1]},graph(1,1) nohead
 set arrow from ${KP_HS_POINTS[2]},graph(0,0) to ${KP_HS_POINTS[2]},graph(1,1) nohead
+set arrow from ${KP_HS_POINTS[3]},graph(0,0) to ${KP_HS_POINTS[3]},graph(1,1) nohead
+set arrow from ${KP_HS_POINTS[4]},graph(0,0) to ${KP_HS_POINTS[4]},graph(1,1) nohead
+set arrow from ${KP_HS_POINTS[5]},graph(0,0) to ${KP_HS_POINTS[5]},graph(1,1) nohead
+set arrow from ${KP_HS_POINTS[6]},graph(0,0) to ${KP_HS_POINTS[6]},graph(1,1) nohead
 
 EOF
 	fi
 	
-	cat >> $PWD/Plot_band_$PREFIX.script <<EOF
+	cat >> $PWD/Plot_band.script <<EOF
 set yrange [${Y_RANGE_BND[0]} : ${Y_RANGE_BND[1]}]
 set ylabel '$Y_LBL_BND'
 set xlabel '$X_LBL_BND'
 FE=$F_ENG_BND
 
-plot "$PWD/OUT/$PREFIX.band.gnu" using 1:(\$2-FE) w l title "$BND_LEGEND"
+plot "$PWD/bands.dat.gnu" using 1:(\$2-FE) w l title ""
 
 EOF
-	./Plot_band_$PREFIX.script
+	./Plot_band.script
 else
 	echo BAND NOT ACTIVATED
 fi
@@ -231,3 +234,4 @@ fi
 
 
 #===================================THE_END=========================================
+
