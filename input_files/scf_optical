@@ -25,9 +25,10 @@ conv_thr = 1.0D-8
 mixing_beta = 0.7
 /
 ATOMIC_SPECIES
-Rb  85.4678  Rb_pbe.UPF
-I  126.9045  I_pbe.UPF
-O  15.9990  O_pbe.UPF
+ATOMIC_SPECIES
+Rb  85.4678  Rb_pbe_paw.UPF
+I  126.9045  I_pbe_paw.UPF
+O  15.9990  O_pbe_paw.UPF
 
 CELL_PARAMETERS (angstrom)
 5.511349886   0.000000000   0.000000000
