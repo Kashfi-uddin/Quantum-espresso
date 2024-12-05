@@ -58,7 +58,7 @@ relax scf properties
 
 
 # OPTICAL
--do scf with nosym & noinv and kpt_crystal
+-do scf with nosym & noinv and kpt_crystal and PP should not be ultrasoft.(paw recommanded)
 -do epsilon.x execution
 
 
