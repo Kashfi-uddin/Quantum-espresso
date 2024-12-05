@@ -58,7 +58,8 @@ relax scf properties
 
 
 # OPTICAL
--do scf with nosym & noinv and kpt_crystal and PP should not be ultrasoft.(paw recommanded)
+-do scf with nosym & noinv and kpt_crystal and PP should not be ultrasoft(epsilon.x works only with  
+norm-conserving pseudopotentials, e.g., Martins-Troullier, RRKJ, ONCV)
 -do epsilon.x execution
 
 
