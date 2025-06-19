@@ -57,6 +57,7 @@ relax scf properties
          frozen_ions=.false.
 /
 -do thermo_pw.x execution (mpirun -np 32 thermo_pw.x -in mecha.in | tee mecha.out)
+-celldm in atomic unit not in angstrom
 
 
 # OPTICAL
