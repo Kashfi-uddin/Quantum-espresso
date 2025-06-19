@@ -1,6 +1,7 @@
 Input generator,K-path generator or cif2qe.py your_file.cif > qe_input.in
 chmod +x <>
 ./<>
+check ecutwfc and ecutrho from pseudopotential file
 
 use oncp pp from psudo dojo https://github.com/PseudoDojo
 use common outdir and pseudo_dir 
