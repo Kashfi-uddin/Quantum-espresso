@@ -51,13 +51,12 @@ relax scf properties
 
 
 #MECHA
--do mecha calc
 -add thermo_control
 &INPUT_THERMO
          what='mur_lc_elastic_constants',
          frozen_ions=.false.
 /
--do thermo_pw.x execution
+-do thermo_pw.x execution (mpirun -np 32 thermo_pw.x -in mecha.in | tee mecha.out)
 
 
 # OPTICAL
