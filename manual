@@ -20,7 +20,7 @@ relax scf properties
 
 
 #BAND 
--do nscf 
+-do scf calc do get fermi level 
 -do bands calc with kpath by pw.x
 -do band_dat calc by bands.x
 #DFT+U
