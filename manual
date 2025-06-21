@@ -20,7 +20,7 @@ relax scf properties
 
 
 #BAND 
--do scf calc do get fermi level 
+-do scf calc do get fermi level ,then nscf smearing tetragonal
 -do bands calc with kpath by pw.x
 -do band_dat calc by bands.x
 #DFT+U
@@ -44,10 +44,17 @@ relax scf properties
 &dos
    prefix = 'aiida'
    outdir = './out/'
-   fildos = 'dos.dat'
+   fildos = 'tdos.dat'
    emin=-9.0
    emax=16.0
    deltaE = 0.01
+/
+#PDOS
+-projwfc.x
+&PROJWFC
+  prefix= 'al',
+  outdir= '/tmp/',
+  filpdos= 'pdos.dat'
 /
 
 
@@ -65,6 +72,19 @@ relax scf properties
 -do scf with nosym & noinv and kpt_crystal and PP should not be ultrasoft(epsilon.x works only with  
 norm-conserving pseudopotentials, e.g., Martins-Troullier, RRKJ, ONCV)
 -do epsilon.x execution
+&inputpp
+  outdir = "/tmp/"
+  prefix = "silicon"
+  calculation = "eps"
+/
+
+&energy_grid
+  smeartype = "gauss"
+  intersmear = 0.2
+  wmin =  0.0
+  wmax = 30.0
+  nw = 500
+/
 
 recording shortcut
 
