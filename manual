@@ -7,6 +7,14 @@ convert to cartesian from fractional for using angstrom to change atomic positio
 use oncp pp from psudo dojo https://github.com/PseudoDojo
 use common outdir and pseudo_dir 
 
+## Phonopy
+edit K3IO.in
+phonopy --qe -d --dim="2 2 2" -c K3IO.in
+edit header.in and run.sh
+phonopy --qe -f K3IO-{001..003}.out
+edit band.conf
+phonopy --qe -c K3IO.in -p -s  band.conf
+
 relax scf properties
 #SCF
 -relaxed lattice parameter & co-ordinates should be copied to scf
