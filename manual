@@ -9,7 +9,7 @@ use common outdir and pseudo_dir
 
 ## Phonopy
 cp header.in phonopy_qe.sh run.sh band.conf
-run phonopy_qe.sh
+edit header.in and run phonopy_qe.sh
 
 relax scf properties
 #SCF
